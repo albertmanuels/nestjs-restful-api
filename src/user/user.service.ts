@@ -11,6 +11,8 @@ import * as bycrypt from 'bcrypt';
 import { ValidationService } from '../common/validation.service';
 import { PrismaService } from '../common/prisma.service';
 import { v4 as uuid } from 'uuid';
+import { User } from '../../generated/prisma';
+
 @Injectable()
 export class UserService {
   constructor(
@@ -84,6 +86,14 @@ export class UserService {
       },
     });
 
+    return {
+      username: user.username,
+      name: user.name,
+      token: user.token as string,
+    };
+  }
+
+  async get(user: User): Promise<UserResponse> {
     return {
       username: user.username,
       name: user.name,
